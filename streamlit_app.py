@@ -22,7 +22,7 @@ my_fruit_list = my_fruit_list.set_index('Fruit')
 
 #this way we will be able to pre populate 
 fruits_selected=streamlit.multiselect("Pick some fruits:", list(my_fruit_list.index), ['Avocado', 'Strawberries'])
-fruits_to_show = my_fruit_list.loc[fruits_selected]
+fruits_to_show = my_fruit_list.loc[fruits_selected] #pandas.datraframe.loc[]
 
 #display table on the page -- earlier step displaying all the fruits
 #streamlit.dataframe(my_fruit_list)

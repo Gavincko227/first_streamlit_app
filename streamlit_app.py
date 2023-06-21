@@ -66,8 +66,6 @@ except URLError as e:
 #put it into a proper dataframe through streamlit
 #streamlit.dataframe(fruityvice_normalized)
 
-# don't run anything past here while we troubleshoot
-# streamlit.stop()
 
 
 streamlit.header('The fruit load list contains:')
@@ -84,6 +82,8 @@ if streamlit.button('Get Fruit Load List'):
     streamlit.dataframe(my_data_rows)
 
 
+# don't run anything past here while we troubleshoot
+streamlit.stop()
 
 
 ## allow the end user to add a fruit to the lsit

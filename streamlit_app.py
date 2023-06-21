@@ -38,21 +38,29 @@ streamlit.dataframe(fruits_to_show)
 
 #NEW SECTION to display fruityvice api response
 streamlit.header('Fruityvice Fruit Advice!')
-fruit_choice = streamlit.text_input('What fruit would you like information about?', 'Kiwi')#kiwi is the default fruit
-streamlit.write('the user entered', fruit_choice)
+try:
+  fruit_choice = streamlit.text_input('What fruit would you like information about?', 'Kiwi')#kiwi is the default fruit
+    if not fruit_choice:
+      streamlit.error("Please select a fruit to get information.")
+  else:
+      fruityvice_response = requests.get("https://fruityvice.com/api/fruit/" + fruit_choice) 
+      fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+      streamlit.dataframe(fruityvice_normalized)
+    
+except URLError as e:
+  streamlit.error()
 
 
-
-fruityvice_response = requests.get("https://fruityvice.com/api/fruit/watermelon")
+#### THIS CODE BELOW HAS BEEN MOVED TO THE TRY CATCH THERE IS JUST SOME OTHER STUFF AS WELL
 #streamlit.text(fruityvice_response.json()) #just writes the data to the screen
 
 #takes the json format of the response and normalizes it
-fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
+#fruityvice_normalized = pandas.json_normalize(fruityvice_response.json())
 #want to see how thte normalized way would be in a text file
 #streamlit.text(fruityvice_normalized) - just like a table but without the lines
 
 #put it into a proper dataframe through streamlit
-streamlit.dataframe(fruityvice_normalized)
+#streamlit.dataframe(fruityvice_normalized)
 
 # don't run anything past here while we troubleshoot
 streamlit.stop()
